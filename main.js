@@ -7,11 +7,38 @@ var client = new Discord.Client()
 let cardsGot = 0;
 
 
+client.on('message', (msg)=> {
+    var cont = msg.content,
+    author = msg.member,
+    channel = msg.channel,
+    guild = msg.guild
+
+    if(author.id != client.user.id && cont.startsWith(config.prefix)){
+        var invoke = cont.split(' ')[0].substr(config.prefix.length),
+        args = cont.split(' ').slice(1)
+
+        console.log(invoke, args)
+        
+
+        
+
+            if(invoke in cmdmap){
+                cmdmap[invoke](msg, args)
+            }
+    }
+})
+
+client.on('guildMemberAdd', member => {
+    const guild = member.guild;
+    const defaultChannel = guild.channels.find(channel => channel.name === 'general');
+
+
+    defaultChannel.send("Wilkommen zu Daniels Geburtstag. Saufen! :beer:"); 
+});
+
 client.on("ready", () =>{
     console.log(`Logged in as ${client.user.username}`)
 })
-
-
 
 var cmdmap = {
     say: cmd_say,
@@ -115,39 +142,4 @@ function cmd_card(msg, args){
 
     }
    
-
-
-
-
-client.on('message', (msg)=> {
-    var cont = msg.content,
-    author = msg.member,
-    channel = msg.channel,
-    guild = msg.guild
-
-    if(author.id != client.user.id && cont.startsWith(config.prefix)){
-        var invoke = cont.split(' ')[0].substr(config.prefix.length),
-        args = cont.split(' ').slice(1)
-
-        console.log(invoke, args)
-        
-
-        
-
-            if(invoke in cmdmap){
-                cmdmap[invoke](msg, args)
-            }
-    }
-})
-
-client.on('guildMemberAdd', member => {
-    const guild = member.guild;
-    const defaultChannel = guild.channels.find(channel => channel.name === 'general');
-
-
-    defaultChannel.send("Wilkommen zu Daniels Geburtstag. Saufen! :beer:"); 
-});
-
-
-
 client.login(config.token)
