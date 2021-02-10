@@ -1,0 +1,4 @@
+services:
+  bot:
+    image: ghcr.io/dasanten/daseconddiscordbot/discord-bot
+    restart: unless-stopped
