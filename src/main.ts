@@ -34,6 +34,8 @@ export class Bot {
                 case 'busDriver':
                     this.cmd_startBusDriver(msg, args);
                     break;
+                case "um_was?":
+                    msg.channel.send("Umberto")    
                 default:
                     msg.channel.send(calledCommand + " is no valid command!");
                     break;
