@@ -4,23 +4,17 @@ import * as fs from 'fs';
  
 export class Bot {
 
-    private client;
+    private client: Client;
     private config;
     
-    private cmdmap: Map<string, string> =  new Map([
-        ['say' , 'cmd_say'],
-        ['test', 'cmd_test'],
-        ['randomCard', 'cmd_card'],
-        ['newCards', 'cmd_new_cards'],
-    ])
-
     constructor(){
         this.config = JSON.parse(fs.readFileSync("src/res/config.json", "utf8"))
         this.client = new Client();
+        this.client.user.setActivity("Karten", {type: "PLAYING"})
         this.client.on('message', (msg: Message) => this.messageEvent(msg));
         this.client.on('guildMemberAdd', member => this.joinEvent(member));
-        this.client.on("ready", () => console.log(`Logged in as ${this.client.user.username}`))
-        this.client.login(this.config.token)
+        this.client.on("ready", () => console.log(`Logged in as ${this.client.user.username}`));
+        this.client.login(this.config.token);
     }
     
     private cardsGot = 0;
@@ -62,7 +56,7 @@ export class Bot {
     }
         
 
-    private cmd_say(msg, args){
+    private cmd_say(msg: Message, args){
         msg.channel.send(args.join(' '))
     }
     
@@ -156,8 +150,6 @@ export class Bot {
         }
     }
        
-
-
 }
 
 new Bot();
