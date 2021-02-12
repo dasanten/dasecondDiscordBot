@@ -13,11 +13,10 @@ export class Bot {
     constructor(){
         this.config = JSON.parse(fs.readFileSync("src/res/config.json", "utf8"))
         this.client = new Client();
-        // this.client.user.setActivity("Karten", {type: "PLAYING"})
         this.client.on('message', (msg: Message) => this.messageEvent(msg));
         this.client.on('guildMemberAdd', member => this.joinEvent(member));
         this.client.on("ready", () => console.log(`Logged in as ${this.client.user.username}`));
-        this.client.login(this.config.token);
+        this.client.login(this.config.token).then(()=>this.client.user.setActivity("Karten", {type: "PLAYING"}));
     }
     
     private messageEvent(msg: Message) {
@@ -34,8 +33,14 @@ export class Bot {
                 case 'busDriver':
                     this.cmd_startBusDriver(msg, args);
                     break;
-                case "um_was?":
-                    msg.channel.send("Umberto")    
+                case "hallo":
+                    msg.channel.send("Ich bin Umberto und ich bin hier um Ihre Tochter zu vögeln.");
+                    break;
+                case "um":
+                        if(args[0] == "was?") {
+                            msg.channel.send("Umberto");  
+                            break;
+                        }
                 default:
                     msg.channel.send(calledCommand + " is no valid command!");
                     break;
