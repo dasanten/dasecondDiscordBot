@@ -33,16 +33,19 @@ export class Bot {
                 case 'busDriver':
                     this.cmd_startBusDriver(msg, args);
                     break;
-                case "hallo":
+                case 'hallo':
                     msg.channel.send("Ich bin Umberto und ich bin hier um Ihre Tochter zu vögeln.");
                     break;
-                case "um":
-                        if(args[0] == "was?") {
+                case 'um':
+                        if(args[0] == "was?" || args[0] == "was" ) {
                             msg.channel.send("Umberto");  
                             break;
                         }
+                case 'help':
+                    msg.channel.send("`Prefix: : \nhallo: :D \num was?: :) \nbusDriver: Busfahrer befehle z.B. start, next, help`")
+                    break;
                 default:
-                    msg.channel.send(calledCommand + " is no valid command!");
+                    msg.channel.send(calledCommand + " is no valid command! \n`nutze :help um alle Befehle zu sehen!`");
                     break;
             }  
         }
