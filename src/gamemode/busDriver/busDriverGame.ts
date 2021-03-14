@@ -25,15 +25,15 @@ export class BusDriverGame extends CardGame {
                 switch(cardPrediction){
                     case 'higher':
                     case '>':
-                        prediction = card.value > this.lastCard.getValue();
+                        prediction = card.getValue() > this.lastCard.getValue();
                         break;
                     case 'lower':
                     case "<":
-                        prediction = card.value < this.lastCard.getValue();
+                        prediction = card.getValue() < this.lastCard.getValue();
                         break;
                     case 'equal':
                     case '=':
-                        prediction = card.value == this.lastCard.getValue();
+                        prediction = card.getValue() == this.lastCard.getValue();
                         break;
                     default:
                         msg.channel.send("Ungültige vohersage");
