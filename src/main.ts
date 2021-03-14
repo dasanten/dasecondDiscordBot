@@ -21,7 +21,6 @@ export class Bot {
     
     private messageEvent(msg: Message) {
         let content = msg.content;
-
         if(content.startsWith(this.config.prefix)){
             var calledCommand = content.split(' ')[0].substr(this.config.prefix.length),
             args = content.split(' ').slice(1);
@@ -31,6 +30,7 @@ export class Bot {
                     this.cmd_say(msg, args);
                     break;
                 case 'busDriver':
+                case 'bd':
                     this.cmd_startBusDriver(msg, args);
                     break;
                 case 'hallo':
@@ -42,7 +42,7 @@ export class Bot {
                             break;
                         }
                 case 'help':
-                    msg.channel.send("`Prefix: : \nhallo: :D \num was?: :) \nbusDriver: Busfahrer befehle z.B. start, next, help`")
+                    msg.channel.send("`Prefix:  " + this.config.prefix + " \nhallo: :D \num was?: :) \nbusDriver | bd: Busfahrer befehle z.B. start, next, help`")
                     break;
                 default:
                     msg.channel.send(calledCommand + " is no valid command! \n`nutze :help um alle Befehle zu sehen!`");

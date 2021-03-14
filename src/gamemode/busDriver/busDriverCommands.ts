@@ -11,7 +11,8 @@ export class BusDriverCommands{
                 this.startGame(msg);
                 break;
             case 'next':
-                this.nextCard(msg)
+            case 'n':
+                this.nextCard(msg, args)
                 break;
             case 'help':
                 msg.channel.send("`Prefix: :busDriver \nstart: Beginne ein neues spiel! \nnext was?: Ziehe die nächste Karte \nclose: Stoppe das laufende Spiel!)`")
@@ -34,10 +35,10 @@ export class BusDriverCommands{
         }
     }
 
-    private static nextCard(msg: Message) {
+    private static nextCard(msg: Message, args) {
         let game = this.checkForExisting(msg.guild.id);
         if (game) {
-            game.nextCard(msg);
+            game.nextCard(msg, args);
         } else {
             msg.channel.send("Es muss erst ein Game erstellt werden!")
         }
